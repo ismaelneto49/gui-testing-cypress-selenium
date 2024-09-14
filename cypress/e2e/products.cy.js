@@ -5,8 +5,8 @@ describe('products', () => {
     cy.get('[id="_password"]').type('sylius');
     cy.get('.primary').click();
   });
-  // Remove .only and implement others test cases!
-  it.only('details is listing all variants', () => {
+  // Remove .only and implement other test cases!
+  it('details is listing all variants', () => {
     // Click in products in side menu
     cy.clickInFirst('a[href="/admin/products/"]');
     // Type in value input to search for specify product
@@ -24,11 +24,26 @@ describe('products', () => {
       .and('contain', '000F_office_grey_jeans-variant-3')
       .and('contain', '000F_office_grey_jeans-variant-4');
   });
-  it('test case 2', () => {
-    // Implement your test case 2 code here
+  it.only('changes the name of a product', () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
+    cy.get('tbody > .item:nth-child(1) > td > .ui > .ui:nth-child(2)').click();
+    cy.get('.ui > div > .ui > .required > #sylius_product_translations_en_US_name').clear().type('000F jeans cinza de escritório');
+    cy.get('.admin-layout__content > .ui > .ui > .ui > #sylius_save_changes_button').click();
+    cy.get('.admin-layout__content > .ui > .column > .ui > .section:nth-child(3)').click();
+
+    cy.get('body').should('contain', '000F jeans cinza de escritório');
   });
   it('test case 3', () => {
-    // Implement your test case 3 code here
+    cy.clickInFirst('a[href="/admin/products/"]');
+  });
+  it('test case 3', () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
+  });
+  it('test case 3', () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
+  });
+  it('test case 3', () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
   });
 
   // Implement the remaining test cases in a similar manner
