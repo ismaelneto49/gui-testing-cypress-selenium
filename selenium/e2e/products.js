@@ -38,7 +38,7 @@ describe('products', () => {
     await buttons[0].click();
 
     // Assert that details page is listing all variants
-    const bodyText = await driver.findElement(By.tagName('body')).getText();
+    const bodyText = await driver.findElement(By.css('body')).getText();
     assert(bodyText.includes('000F_office_grey_jeans-variant-0'));
     assert(bodyText.includes('000F_office_grey_jeans-variant-1'));
     assert(bodyText.includes('000F_office_grey_jeans-variant-2'));
@@ -54,7 +54,7 @@ describe('products', () => {
     await nameField.sendKeys('000F jeans cinza de escritório');
     await driver.findElement(By.id('sylius_save_changes_button')).click();
 
-    const bodyText = await driver.findElement(By.tagName('body')).getText();
+    const bodyText = await driver.findElement(By.css('body')).getText();
     assert(bodyText.includes('000F jeans cinza de escritório'));
   });
 
@@ -64,9 +64,10 @@ describe('products', () => {
     await driver.findElement(By.css('.ui.blue.labeled.icon.button')).click();
     const trashIcon = await driver.findElement(By.css('.icon.trash'));
     await driver.executeScript('arguments[0].scrollIntoView(true);', trashIcon);
-    await trashIcon.click();
+    await driver.executeScript('arguments[0].click();', trashIcon);
+    await driver.findElement(By.id('confirmation-button')).click();
 
-    const bodyText = await driver.findElement(By.tagName('body')).getText();
+    const bodyText = await driver.findElement(By.css('body')).getText();
     assert(bodyText.includes('Products have been successfully deleted.'));
   });
 
@@ -82,7 +83,7 @@ describe('products', () => {
     await variantNameField.sendKeys('SAPATO');
     await driver.findElement(By.id('sylius_save_changes_button')).click();
 
-    const bodyText = await driver.findElement(By.tagName('body')).getText();
+    const bodyText = await driver.findElement(By.css('body')).getText();
     assert(bodyText.includes('SAPATO'));
   });
 
@@ -94,7 +95,7 @@ describe('products', () => {
     await trashIcon.click();
     await driver.findElement(By.id('confirmation-button')).click();
 
-    const bodyText = await driver.findElement(By.tagName('body')).getText();
+    const bodyText = await driver.findElement(By.css('body')).getText();
     assert(bodyText.includes('Product_variants have been successfully deleted.'));
   });
 
@@ -104,7 +105,7 @@ describe('products', () => {
     await driver.findElement(By.css('.random.icon')).click();
     await driver.findElement(By.css('.ui.labeled.icon.primary.button')).click();
 
-    const bodyText = await driver.findElement(By.tagName('body')).getText();
+    const bodyText = await driver.findElement(By.css('body')).getText();
     assert(bodyText.includes('Product variants have been successfully generated.'));
   });
 });
