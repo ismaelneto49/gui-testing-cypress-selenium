@@ -51,22 +51,28 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'SAPATO');
   });
-  it("deletes an item's variant", () => {
-    cy.viewport(1920, 1080)
+  it.skip("deletes an item's variant", () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.get('[class="ui labeled icon button "]').first().click();
     cy.get('[class="ui labeled icon button edit-variant"]').first().scrollIntoView().click();
     cy.wait(1000);
     cy.get('[id="sylius_save_changes_button"]').click();
     cy.get('[class="icon trash"]').first().scrollIntoView().click({ force: true });
-    cy.wait(100)
-    cy.get('[id="confirmation-button"]').click()
+    cy.wait(100);
+    cy.get('[id="confirmation-button"]').click();
 
     cy.get('body').should('contain', 'Product_variants have been successfully deleted.');
   });
-  it('test case 3', () => {
+  it("generates an item's variant", () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
+    cy.get('[class="cubes icon"]').first().click();
+    cy.get('[class="random icon"]').first().click();
+    cy.get('[class="ui labeled icon primary button"]').scrollIntoView().click();
+
+    cy.get('body').should('contain', 'Product variants have been successfully generated.');
+  });
+  it('test case', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
   });
-
   // Implement the remaining test cases in a similar manner
 });
