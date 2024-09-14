@@ -26,10 +26,10 @@ describe('products', () => {
   });
   it.only('changes the name of a product', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
-    cy.get('tbody > .item:nth-child(1) > td > .ui > .ui:nth-child(2)').click();
-    cy.get('.ui > div > .ui > .required > #sylius_product_translations_en_US_name').clear().type('000F jeans cinza de escritório');
-    cy.get('.admin-layout__content > .ui > .ui > .ui > #sylius_save_changes_button').click();
-    cy.get('.admin-layout__content > .ui > .column > .ui > .section:nth-child(3)').click();
+    cy.get('[class="icon pencil"]').first().click();
+    cy.get('[id="sylius_product_translations_en_US_name"]').clear().type('000F jeans cinza de escritório');
+    cy.get('[id="sylius_save_changes_button"]').click();
+    cy.clickInFirst('a[href="/admin/products/"]');
 
     cy.get('body').should('contain', '000F jeans cinza de escritório');
   });
