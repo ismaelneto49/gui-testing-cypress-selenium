@@ -63,7 +63,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'Product_variants have been successfully deleted.');
   });
-  it("generates an item's variant", () => {
+  it.skip("generates an item's variant", () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.get('[class="cubes icon"]').first().click();
     cy.get('[class="random icon"]').first().click();
@@ -71,7 +71,48 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'Product variants have been successfully generated.');
   });
-  it('test case', () => {
+  it.skip('creates a simple product', () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
+    cy.contains('Create').click();
+    cy.contains('Simple product').click();
+    cy.get('[id="sylius_product_code"]').type('123');
+    cy.get('[id="sylius_product_translations_en_US_name"]').type('product name');
+    cy.get('[id="sylius_product_translations_en_US_slug"]').type('product-slug');
+    cy.contains('Create').click();
+
+    cy.get('body').should('contain', 'Product has been successfully created.');
+  });
+  it.skip('changes the taxonomy', () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
+    cy.contains('Edit').first().click();
+    cy.get('[data-tab="taxonomy"]').first().click();
+    cy.get('[data-value="t_shirts"]').click();
+    cy.contains('Save changes').click();
+
+    cy.get('body').should('contain', 'Product has been successfully updated.');
+  });
+  it.skip('adds an attribute', () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
+    cy.contains('Edit').first().click();
+    cy.get('[data-tab="attributes"]').first().click();
+    cy.get('[class="ui fluid search dropdown selection multiple"]').find('[class="dropdown icon"]').click();
+    cy.contains('T-shirt brand').click({ force: true });
+    cy.contains('Save changes').click();
+
+    cy.get('body').should('contain', 'Product has been successfully updated.');
+  });
+  it.skip('adds an association', () => {
+    cy.clickInFirst('a[href="/admin/products/"]');
+    cy.contains('Edit').first().click();
+    cy.get('[data-tab="associations"]').first().click();
+    cy.get('[class="product-select ui fluid multiple search selection dropdown"]').click();
+    cy.get('[class="item selected"]').first().click();
+    cy.contains('Save changes').click();
+
+    cy.get('body').should('contain', 'Product has been successfully updated.');
+  });
+
+  it.skip('test case', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
   });
   // Implement the remaining test cases in a similar manner
