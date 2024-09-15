@@ -6,7 +6,7 @@ describe('products', () => {
     cy.get('.primary').click();
   });
   // Remove .only and implement other test cases!
-  it.skip('details is listing all variants', () => {
+  it('details is listing all variants', () => {
     // Click in products in side menu
     cy.clickInFirst('a[href="/admin/products/"]');
     // Type in value input to search for specify product
@@ -24,7 +24,7 @@ describe('products', () => {
       .and('contain', '000F_office_grey_jeans-variant-3')
       .and('contain', '000F_office_grey_jeans-variant-4');
   });
-  it.skip('changes the name of a product', () => {
+  it('changes the name of a product', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.get('[class="icon pencil"]').first().click();
     cy.get('[id="sylius_product_translations_en_US_name"]').clear().type('000F jeans cinza de escritório');
@@ -33,7 +33,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', '000F jeans cinza de escritório');
   });
-  it.skip('deletes a product', () => {
+  it('deletes a product', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.get('[id="criteria_search_value"]').type('000F_office_grey_jeans');
     cy.get('[class="ui blue labeled icon button"]').click();
@@ -41,7 +41,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'Products have been successfully deleted.');
   });
-  it.skip("edits an item's variant", () => {
+  it("edits an item's variant", () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.get('[class="ui labeled icon button "]').first().click();
     cy.get('[class="ui labeled icon button edit-variant"]').first().scrollIntoView().click();
@@ -51,7 +51,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'SAPATO');
   });
-  it.skip("deletes an item's variant", () => {
+  it("deletes an item's variant", () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.get('[class="ui labeled icon button "]').first().click();
     cy.get('[class="ui labeled icon button edit-variant"]').first().scrollIntoView().click();
@@ -63,7 +63,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'Product_variants have been successfully deleted.');
   });
-  it.skip("generates an item's variant", () => {
+  it("generates an item's variant", () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.get('[class="cubes icon"]').first().click();
     cy.get('[class="random icon"]').first().click();
@@ -71,7 +71,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'Product variants have been successfully generated.');
   });
-  it.skip('creates a simple product', () => {
+  it('creates a simple product', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.contains('Create').click();
     cy.contains('Simple product').click();
@@ -82,7 +82,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'Product has been successfully created.');
   });
-  it.skip('changes the taxonomy', () => {
+  it('changes the taxonomy', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.contains('Edit').first().click();
     cy.get('[data-tab="taxonomy"]').first().click();
@@ -91,7 +91,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'Product has been successfully updated.');
   });
-  it.skip('adds an attribute', () => {
+  it('adds an attribute', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.contains('Edit').first().click();
     cy.get('[data-tab="attributes"]').first().click();
@@ -101,7 +101,7 @@ describe('products', () => {
 
     cy.get('body').should('contain', 'Product has been successfully updated.');
   });
-  it.skip('adds an association', () => {
+  it('adds an association', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.contains('Edit').first().click();
     cy.get('[data-tab="associations"]').first().click();
@@ -112,7 +112,7 @@ describe('products', () => {
     cy.get('body').should('contain', 'Product has been successfully updated.');
   });
 
-  it.skip('test case', () => {
+  it('test case', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
   });
   // Implement the remaining test cases in a similar manner
