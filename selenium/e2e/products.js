@@ -111,4 +111,52 @@ describe('products', () => {
     const bodyText = await driver.findElement(By.css('body')).getText();
     assert(bodyText.includes('Product variants have been successfully generated.'));
   });
+
+  it.only('creates a simple product', async () => {
+    await driver.findElement(By.css('a[href="/admin/products/"]')).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'Create')]")).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'Simple product')]")).click();
+    await driver.findElement(By.id('sylius_product_code')).sendKeys('123');
+    await driver.findElement(By.id('sylius_product_translations_en_US_name')).sendKeys('product name');
+    await driver.findElement(By.id('sylius_product_translations_en_US_slug')).sendKeys('product-slug');
+    await driver.findElement(By.xpath("//*[contains(text(), 'Create')]")).click();
+
+    const bodyText = await driver.findElement(By.css('body')).getText();
+    assert(bodyText.includes('Product has been successfully created.'));
+  });
+
+  it('changes the taxonomy', async () => {
+    await driver.findElement(By.css('a[href="/admin/products/"]')).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'Edit')]")).click();
+    await driver.findElement(By.css('[data-tab="taxonomy"]')).click();
+    await driver.findElement(By.css('[data-value="t_shirts"]')).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'Save changes')]")).click();
+
+    const bodyText = await driver.findElement(By.css('body')).getText();
+    assert(bodyText.includes('Product has been successfully updated.'));
+  });
+
+  it('adds an attribute', async () => {
+    await driver.findElement(By.css('a[href="/admin/products/"]')).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'Edit')]")).click();
+    await driver.findElement(By.css('[data-tab="attributes"]')).click();
+    await driver.findElement(By.css('.ui.fluid.search.dropdown.selection.multiple')).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'T-shirt brand')]")).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'Save changes')]")).click();
+
+    const bodyText = await driver.findElement(By.css('body')).getText();
+    assert(bodyText.includes('Product has been successfully updated.'));
+  });
+
+  it('adds an association', async () => {
+    await driver.findElement(By.css('a[href="/admin/products/"]')).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'Edit')]")).click();
+    await driver.findElement(By.css('[data-tab="associations"]')).click();
+    await driver.findElement(By.css('.product-select.ui.fluid.multiple.search.selection.dropdown')).click();
+    await driver.findElement(By.css('.item.selected')).click();
+    await driver.findElement(By.xpath("//*[contains(text(), 'Save changes')]")).click();
+
+    const bodyText = await driver.findElement(By.css('body')).getText();
+    assert(bodyText.includes('Product has been successfully updated.'));
+  });
 });
