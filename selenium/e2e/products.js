@@ -112,9 +112,11 @@ describe('products', () => {
     assert(bodyText.includes('Product variants have been successfully generated.'));
   });
 
-  it.only('creates a simple product', async () => {
+  it('creates a simple product', async () => {
     await driver.findElement(By.css('a[href="/admin/products/"]')).click();
+    await driver.sleep(10000);
     await driver.findElement(By.xpath("//*[contains(text(), 'Create')]")).click();
+
     await driver.findElement(By.xpath("//*[contains(text(), 'Simple product')]")).click();
     await driver.findElement(By.id('sylius_product_code')).sendKeys('123');
     await driver.findElement(By.id('sylius_product_translations_en_US_name')).sendKeys('product name');
@@ -127,8 +129,12 @@ describe('products', () => {
 
   it('changes the taxonomy', async () => {
     await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-    await driver.findElement(By.xpath("//*[contains(text(), 'Edit')]")).click();
+    await driver.sleep(12000);
+
+    await driver.findElement(By.css('[class="icon pencil"]')).click();
     await driver.findElement(By.css('[data-tab="taxonomy"]')).click();
+
+    await driver.sleep(1000);
     await driver.findElement(By.css('[data-value="t_shirts"]')).click();
     await driver.findElement(By.xpath("//*[contains(text(), 'Save changes')]")).click();
 
@@ -138,9 +144,13 @@ describe('products', () => {
 
   it('adds an attribute', async () => {
     await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-    await driver.findElement(By.xpath("//*[contains(text(), 'Edit')]")).click();
+    await driver.sleep(12000);
+
+    await driver.findElement(By.css('[class="icon pencil"]')).click();
     await driver.findElement(By.css('[data-tab="attributes"]')).click();
-    await driver.findElement(By.css('.ui.fluid.search.dropdown.selection.multiple')).click();
+    await driver.sleep(1000);
+    const element = await driver.findElement(By.css('[class="ui fluid search dropdown selection multiple"]')).click();
+    await driver.executeScript("arguments[0].scrollIntoView(true);", element);
     await driver.findElement(By.xpath("//*[contains(text(), 'T-shirt brand')]")).click();
     await driver.findElement(By.xpath("//*[contains(text(), 'Save changes')]")).click();
 
@@ -150,6 +160,8 @@ describe('products', () => {
 
   it('adds an association', async () => {
     await driver.findElement(By.css('a[href="/admin/products/"]')).click();
+    await driver.sleep(10000);
+
     await driver.findElement(By.xpath("//*[contains(text(), 'Edit')]")).click();
     await driver.findElement(By.css('[data-tab="associations"]')).click();
     await driver.findElement(By.css('.product-select.ui.fluid.multiple.search.selection.dropdown')).click();

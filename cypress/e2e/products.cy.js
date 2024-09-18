@@ -33,13 +33,13 @@ describe('products', () => {
 
     cy.get('body').should('contain', '000F jeans cinza de escritório');
   });
-  it('deletes a product', () => {
+  it('tries to delete a product in use', () => {
     cy.clickInFirst('a[href="/admin/products/"]');
     cy.get('[id="criteria_search_value"]').type('000F_office_grey_jeans');
     cy.get('[class="ui blue labeled icon button"]').click();
-    cy.get('[class="icon trash"]').first().scrollIntoView().click({ force: true });
+    cy.get('[class="icon trash"]').eq(1).scrollIntoView().click({ force: true });
 
-    cy.get('body').should('contain', 'Products have been successfully deleted.');
+    cy.get('body').should('contain', 'Cannot delete, the Product is in use.');
   });
   it("edits an item's variant", () => {
     cy.clickInFirst('a[href="/admin/products/"]');
@@ -110,10 +110,6 @@ describe('products', () => {
     cy.contains('Save changes').click();
 
     cy.get('body').should('contain', 'Product has been successfully updated.');
-  });
-
-  it('test case', () => {
-    cy.clickInFirst('a[href="/admin/products/"]');
   });
   // Implement the remaining test cases in a similar manner
 });
